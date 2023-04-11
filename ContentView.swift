@@ -9,7 +9,7 @@ import SwiftUI
 struct ContentView: View {
     var body: some View {
         ZStack {
-            Image("background")
+            Image("bg-text")
                 .resizable()
             HStack{
                 NavigationLink(destination: Tela2()) {
@@ -39,7 +39,14 @@ struct Tela2: View{
             HStack(alignment: .bottom) {
                 
                 HStack {
-                    Image("mil-cont")
+                    Image("bandeira")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(
+                            width: proxy.size.width * (milSizeProportion/2),
+                            height: proxy.size.height * milSizeProportion
+                        )
+                        .border(.blue)
                     Image(continencia ? "mil-cont" : "mil-padrao")
                         .resizable()
                         .scaledToFit()
