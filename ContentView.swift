@@ -6,6 +6,9 @@ import SwiftUI
 //     2.1 Fazer uma imagem ser "arrastavel" (DragGesture)
 //     2.2 Detectar se a imagem está na regiao desejada pra mudar o state
 
+
+//está dando problema de escala no tamanho dos bonecos. Cada boneco aciona em uma coordenada diferente , mais abaixo da tela. Precisa consertar.
+
 struct ContentView: View {
     var body: some View {
         ZStack {
@@ -34,7 +37,7 @@ struct Tela2: View{
     @State var aeroSizeProportion: Double = 0.18
     
     @State var ebPosition: CGPoint = .zero
-    @State var ebtSizeProportion: Double = 0.18
+    @State var ebSizeProportion: Double = 0.18
     
     @State var marPosition: CGPoint = .zero
     @State var marSizeProportion: Double = 0.18
@@ -99,25 +102,51 @@ struct Tela2: View{
                         .resizable()
                         .scaledToFit()
                         .foregroundColor(.accentColor)
-                        .frame(width: proxy.size.width * 0.18, height: proxy.size.height * 0.18)
+                        .frame(
+                            width: proxy.size.width * (aeroSizeProportion/2),
+                            height: proxy.size.height * aeroSizeProportion
+                        )
                         .position(x: aeroPosition.x, y: aeroPosition.y)
                         .gesture(
                             DragGesture().onChanged { value in
                                 aeroPosition = value.location
                             }
                         )
+//                        .resizable()
+//                        .scaledToFit()
+//                        .foregroundColor(.accentColor)
+//                        .frame(width: proxy.size.width * 0.18, height: proxy.size.height * 0.18)
+//                        .position(x: aeroPosition.x, y: aeroPosition.y)
+//                        .gesture(
+//                            DragGesture().onChanged { value in
+//                                aeroPosition = value.location
+//                            }
+//                        )
 
                     Image("mil-ebw.png")
                         .resizable()
                         .scaledToFit()
                         .foregroundColor(.accentColor)
-                        .frame(width: proxy.size.width * 0.18, height: proxy.size.height * 0.18)
+                        .frame(
+                            width: proxy.size.width * (ebSizeProportion/2),
+                            height: proxy.size.height * ebSizeProportion
+                        )
                         .position(x: ebPosition.x, y: ebPosition.y)
                         .gesture(
                             DragGesture().onChanged { value in
                                 ebPosition = value.location
                             }
                         )
+//                        .resizable()
+//                        .scaledToFit()
+//                        .foregroundColor(.accentColor)
+//                        .frame(width: proxy.size.width * 0.18, height: proxy.size.height * 0.18)
+//                        .position(x: ebPosition.x, y: ebPosition.y)
+//                        .gesture(
+//                            DragGesture().onChanged { value in
+//                                ebPosition = value.location
+//                            }
+//                        )
 
                     Image("mil-mar-br")
                         .resizable()
@@ -140,6 +169,9 @@ struct Tela2: View{
                     .scaledToFill()
                     .ignoresSafeArea()
             )
+            
+            //Boneco 1: Mudanca do tamanho do veterano dentro da area delimitada.
+            
             .onChange(of: vetPosition, perform: { newValue in
                 let thresholdX = proxy.size.width * 0.4
                 let thresholdY = proxy.size.height * 0.4
@@ -150,6 +182,8 @@ struct Tela2: View{
                 print("\ny", newValue.y)
                 print("thresholdY", thresholdY)
                 
+                // Condicional para mudanca do padrao para continencia, quando vet dentro da área delimitada pelas constantes thresholdX e thresholdY
+                
                 if newValue.x < thresholdX, newValue.y > thresholdY {
                     continencia = true
                     vetSizeProportion = milSizeProportion
@@ -158,7 +192,8 @@ struct Tela2: View{
                     continencia = false
                 }
             })
-//            Replicando nos 3 bonecos restantes\
+            
+            //boneco 2: Mudanca do tamanho do aero dentro da area delimitada.
             
             .onChange(of: aeroPosition, perform: { newValue in
                 let thresholdX = proxy.size.width * 0.4
@@ -170,14 +205,64 @@ struct Tela2: View{
                 print("\ny", newValue.y)
                 print("thresholdY", thresholdY)
                 
+                // Condicional para mudanca do padrao para continencia, quando aero dentro da área delimitada pelas constantes thresholdX e thresholdY
+                
                 if newValue.x < thresholdX, newValue.y > thresholdY {
                     continencia = true
-                    vetSizeProportion = milSizeProportion
+                    aeroSizeProportion = milSizeProportion
                 } else {
-                    vetSizeProportion = 0.18
+                    aeroSizeProportion = 0.18
                     continencia = false
                 }
             })
+            
+            //Boneco 3: Mudanca do tamanho do eb dentro da area delimitada.
+            
+            .onChange(of: ebPosition, perform: { newValue in
+                let thresholdX = proxy.size.width * 0.4
+                let thresholdY = proxy.size.height * 0.4
+                
+                print("\nx", newValue.x)
+                print("thresholdX", thresholdX)
+                
+                print("\ny", newValue.y)
+                print("thresholdY", thresholdY)
+                
+                // Condicional para mudanca do padrao para continencia, quando eb dentro da área delimitada pelas constantes thresholdX e thresholdY
+                
+                if newValue.x < thresholdX, newValue.y > thresholdY {
+                    continencia = true
+                    ebSizeProportion = milSizeProportion
+                } else {
+                    ebSizeProportion = 0.18
+                    continencia = false
+                }
+            })
+            
+            //Boneco 4: Mudanca do tamanho do mar dentro da area delimitada.
+            
+            .onChange(of: marPosition, perform: { newValue in
+                let thresholdX = proxy.size.width * 0.4
+                let thresholdY = proxy.size.height * 0.4
+                
+                print("\nx", newValue.x)
+                print("thresholdX", thresholdX)
+                
+                print("\ny", newValue.y)
+                print("thresholdY", thresholdY)
+                
+                // Condicional para mudanca do padrao para continencia, quando mar dentro da área delimitada pelas constantes thresholdX e thresholdY
+                
+                if newValue.x < thresholdX, newValue.y > thresholdY {
+                    continencia = true
+                    marSizeProportion = milSizeProportion
+                } else {
+                    marSizeProportion = 0.18
+                    continencia = false
+                }
+            })
+            
+            
             // Replicar pros outros bonequinhos
             .onAppear {
                 // colocar pontos iniciais corretos em todos os positions
