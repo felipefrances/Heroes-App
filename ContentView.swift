@@ -38,15 +38,17 @@ struct Tela2: View{
         GeometryReader { proxy in
             HStack(alignment: .bottom) {
                 
-                HStack {
+                ZStack {
                     Image("bandeira")
                         .resizable()
                         .scaledToFit()
-                        .frame(
-                            width: proxy.size.width * (milSizeProportion/2),
-                            height: proxy.size.height * milSizeProportion
-                        )
+                    //                        .frame(
+                    //                            width: proxy.size.width * (milSizeProportion/2),
+                    //                            height: proxy.size.height * milSizeProportion
+                    //                        )
                         .border(.blue)
+                }
+                    HStack {
                     Image(continencia ? "mil-cont" : "mil-padrao")
                         .resizable()
                         .scaledToFit()
