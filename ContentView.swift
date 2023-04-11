@@ -47,8 +47,8 @@ struct Tela2: View{
                     //                            height: proxy.size.height * milSizeProportion
                     //                        )
                         .border(.blue)
-                }
-                    HStack {
+                    VStack {
+                        Spacer()
                     Image(continencia ? "mil-cont" : "mil-padrao")
                         .resizable()
                         .scaledToFit()
@@ -59,10 +59,25 @@ struct Tela2: View{
                         .border(.red)
                 }
                 .padding(.leading, 50)
-                
-                Spacer()
+                .padding(.bottom)
+                    
                     .border(.blue)
-                
+                }
+//                    HStack {
+//                    Image(continencia ? "mil-cont" : "mil-padrao")
+//                        .resizable()
+//                        .scaledToFit()
+//                        .frame(
+//                            width: proxy.size.width * (milSizeProportion/2),
+//                            height: proxy.size.height * milSizeProportion
+//                        )
+//                        .border(.red)
+//                }
+//                .padding(.leading, 50)
+//
+//                Spacer()
+//                    .border(.blue)
+//
                 VStack {
                     Image("mil-vet")
                         .resizable()
