@@ -31,8 +31,13 @@ struct Tela2: View{
     @State var vetSizeProportion: Double = 0.18
     
     @State var aeroPosition: CGPoint = .zero
+    @State var aeroSizeProportion: Double = 0.18
+    
     @State var ebPosition: CGPoint = .zero
+    @State var ebtSizeProportion: Double = 0.18
+    
     @State var marPosition: CGPoint = .zero
+    @State var marSizeProportion: Double = 0.18
     
     var body: some View {
         GeometryReader { proxy in
@@ -42,10 +47,6 @@ struct Tela2: View{
                     Image("bandeira")
                         .resizable()
                         .scaledToFit()
-                    //                        .frame(
-                    //                            width: proxy.size.width * (milSizeProportion/2),
-                    //                            height: proxy.size.height * milSizeProportion
-                    //                        )
                         .border(.blue)
                     VStack {
                         Spacer()
@@ -63,7 +64,7 @@ struct Tela2: View{
                     
                     .border(.blue)
                 }
-//                    HStack {
+//                    HStack {      //boneco duplicado. Excluir após teste final
 //                    Image(continencia ? "mil-cont" : "mil-padrao")
 //                        .resizable()
 //                        .scaledToFit()
@@ -140,6 +141,26 @@ struct Tela2: View{
                     .ignoresSafeArea()
             )
             .onChange(of: vetPosition, perform: { newValue in
+                let thresholdX = proxy.size.width * 0.4
+                let thresholdY = proxy.size.height * 0.4
+                
+                print("\nx", newValue.x)
+                print("thresholdX", thresholdX)
+                
+                print("\ny", newValue.y)
+                print("thresholdY", thresholdY)
+                
+                if newValue.x < thresholdX, newValue.y > thresholdY {
+                    continencia = true
+                    vetSizeProportion = milSizeProportion
+                } else {
+                    vetSizeProportion = 0.18
+                    continencia = false
+                }
+            })
+//            Replicando nos 3 bonecos restantes\
+            
+            .onChange(of: aeroPosition, perform: { newValue in
                 let thresholdX = proxy.size.width * 0.4
                 let thresholdY = proxy.size.height * 0.4
                 
