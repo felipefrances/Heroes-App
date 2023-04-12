@@ -1,13 +1,15 @@
 import SwiftUI
 
-// Desafio:
-// 1. Fazer um botao que muda a imagem de militar_padrao pra militar_continencia
-// 2. Em vez de mudar o state com a action do botao, modificar quando uma image é arrastada pra cima da outra. 
-//     2.1 Fazer uma imagem ser "arrastavel" (DragGesture)
 //     2.2 Detectar se a imagem está na regiao desejada pra mudar o state
 
 
 //está dando problema de escala no tamanho dos bonecos. Cada boneco aciona em uma coordenada diferente , mais abaixo da tela. Precisa consertar.
+
+//criar uma condiçao que caso haja qualquer boneco dentro da coordenada estipulada para a continencia, o boneco permanece em continencia. atualmente com bug de dois bonecos na area
+
+// Ajustar texto do background da primeira tela. Incluir a celebracao da "unity and diversity", "enjoy" e passar por correcao ortografica.
+
+//incluir botao de som que habilita e desabilita a musica.
 
 struct ContentView: View {
     var body: some View {
@@ -33,13 +35,13 @@ struct Tela2: View{
     @State var vetPosition: CGPoint = .zero
     @State var vetSizeProportion: Double = 0.18
     
-    @State var aeroPosition: CGPoint = .zero
+    @State var aeroPosition: CGPoint = CGPoint(x: 0, y: 150)
     @State var aeroSizeProportion: Double = 0.18
     
-    @State var ebPosition: CGPoint = .zero
+    @State var ebPosition: CGPoint = CGPoint(x: 0, y: 300)
     @State var ebSizeProportion: Double = 0.18
     
-    @State var marPosition: CGPoint = .zero
+    @State var marPosition: CGPoint = CGPoint(x: 0, y: 450)
     @State var marSizeProportion: Double = 0.18
     
     var body: some View {
@@ -82,7 +84,7 @@ struct Tela2: View{
 //                Spacer()
 //                    .border(.blue)
 //
-                VStack {
+                ZStack {
                     Image("mil-vet")
                         .resizable()
                         .scaledToFit()
@@ -169,10 +171,21 @@ struct Tela2: View{
                     .scaledToFill()
                     .ignoresSafeArea()
             )
+            .onChange(of: [vetPosition, aeroPosition, ebPosition, marPosition]) { newValues in
+                
+                let thresholdX = proxy.size.width * 0.4
+                let thresholdY = proxy.size.height * 0.4
+                
+                continencia = newValues.contains(where: { position in
+                    return position.x < thresholdX && position.y > thresholdY
+                })
+
+            }
             
             //Boneco 1: Mudanca do tamanho do veterano dentro da area delimitada.
             
             .onChange(of: vetPosition, perform: { newValue in
+                
                 let thresholdX = proxy.size.width * 0.4
                 let thresholdY = proxy.size.height * 0.4
                 
@@ -185,11 +198,11 @@ struct Tela2: View{
                 // Condicional para mudanca do padrao para continencia, quando vet dentro da área delimitada pelas constantes thresholdX e thresholdY
                 
                 if newValue.x < thresholdX, newValue.y > thresholdY {
-                    continencia = true
+//                    continencia = true
                     vetSizeProportion = milSizeProportion
                 } else {
                     vetSizeProportion = 0.18
-                    continencia = false
+//                    continencia = false
                 }
             })
             
@@ -208,11 +221,11 @@ struct Tela2: View{
                 // Condicional para mudanca do padrao para continencia, quando aero dentro da área delimitada pelas constantes thresholdX e thresholdY
                 
                 if newValue.x < thresholdX, newValue.y > thresholdY {
-                    continencia = true
+//                    continencia = true
                     aeroSizeProportion = milSizeProportion
                 } else {
                     aeroSizeProportion = 0.18
-                    continencia = false
+//                    continencia = false
                 }
             })
             
@@ -231,11 +244,11 @@ struct Tela2: View{
                 // Condicional para mudanca do padrao para continencia, quando eb dentro da área delimitada pelas constantes thresholdX e thresholdY
                 
                 if newValue.x < thresholdX, newValue.y > thresholdY {
-                    continencia = true
+//                    continencia = true
                     ebSizeProportion = milSizeProportion
                 } else {
                     ebSizeProportion = 0.18
-                    continencia = false
+//                    continencia = false
                 }
             })
             
@@ -254,11 +267,11 @@ struct Tela2: View{
                 // Condicional para mudanca do padrao para continencia, quando mar dentro da área delimitada pelas constantes thresholdX e thresholdY
                 
                 if newValue.x < thresholdX, newValue.y > thresholdY {
-                    continencia = true
+//                    continencia = true
                     marSizeProportion = milSizeProportion
                 } else {
                     marSizeProportion = 0.18
-                    continencia = false
+//                    continencia = false
                 }
             })
             
