@@ -35,13 +35,14 @@ struct Tela2: View{
     @State var vetPosition: CGPoint = .zero
     @State var vetSizeProportion: Double = 0.18
     
-    @State var aeroPosition: CGPoint = CGPoint(x: 0, y: 150)
+    @State var aeroPosition: CGPoint = .zero
     @State var aeroSizeProportion: Double = 0.18
     
-    @State var ebPosition: CGPoint = CGPoint(x: 0, y: 300)
+    @State var ebPosition: CGPoint = .zero
+    //width (width/50)*40
     @State var ebSizeProportion: Double = 0.18
     
-    @State var marPosition: CGPoint = CGPoint(x: 0, y: 450)
+    @State var marPosition: CGPoint = .zero
     @State var marSizeProportion: Double = 0.18
     
     var body: some View {
@@ -55,35 +56,27 @@ struct Tela2: View{
                         .border(.blue)
                     VStack {
                         Spacer()
-                    Image(continencia ? "mil-cont" : "mil-padrao")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(
-                            width: proxy.size.width * (milSizeProportion/2),
-                            height: proxy.size.height * milSizeProportion
-                        )
-                        .border(.red)
-                }
-                .padding(.leading, 50)
-                .padding(.bottom)
+                        Image(continencia ? "mil-cont" : "mil-padrao")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(
+                                width: proxy.size.width * (milSizeProportion/2),
+                                height: proxy.size.height * milSizeProportion
+                            )
+                            .border(.red)
+                    }
+                    .padding(.leading, 50)
+                    .padding(.bottom)
                     
                     .border(.blue)
                 }
-//                    HStack {      //boneco duplicado. Excluir após teste final
-//                    Image(continencia ? "mil-cont" : "mil-padrao")
-//                        .resizable()
-//                        .scaledToFit()
-//                        .frame(
-//                            width: proxy.size.width * (milSizeProportion/2),
-//                            height: proxy.size.height * milSizeProportion
-//                        )
-//                        .border(.red)
+//                .onAppear {
+//
+//                    aeroPosition = CGPoint(x: 0, y: 250)
+//                    ebPosition = CGPoint(x: 0, y: 500)
+//                    marPosition = CGPoint(x: 0, y: 750)
 //                }
-//                .padding(.leading, 50)
-//
-//                Spacer()
-//                    .border(.blue)
-//
+                
                 ZStack {
                     Image("mil-vet")
                         .resizable()
@@ -114,17 +107,17 @@ struct Tela2: View{
                                 aeroPosition = value.location
                             }
                         )
-//                        .resizable()
-//                        .scaledToFit()
-//                        .foregroundColor(.accentColor)
-//                        .frame(width: proxy.size.width * 0.18, height: proxy.size.height * 0.18)
-//                        .position(x: aeroPosition.x, y: aeroPosition.y)
-//                        .gesture(
-//                            DragGesture().onChanged { value in
-//                                aeroPosition = value.location
-//                            }
-//                        )
-
+                    //                        .resizable()
+                    //                        .scaledToFit()
+                    //                        .foregroundColor(.accentColor)
+                    //                        .frame(width: proxy.size.width * 0.18, height: proxy.size.height * 0.18)
+                    //                        .position(x: aeroPosition.x, y: aeroPosition.y)
+                    //                        .gesture(
+                    //                            DragGesture().onChanged { value in
+                    //                                aeroPosition = value.location
+                    //                            }
+                    //                        )
+                    
                     Image("mil-ebw.png")
                         .resizable()
                         .scaledToFit()
@@ -139,28 +132,43 @@ struct Tela2: View{
                                 ebPosition = value.location
                             }
                         )
-//                        .resizable()
-//                        .scaledToFit()
-//                        .foregroundColor(.accentColor)
-//                        .frame(width: proxy.size.width * 0.18, height: proxy.size.height * 0.18)
-//                        .position(x: ebPosition.x, y: ebPosition.y)
-//                        .gesture(
-//                            DragGesture().onChanged { value in
-//                                ebPosition = value.location
-//                            }
-//                        )
-
+                    //                        .resizable()
+                    //                        .scaledToFit()
+                    //                        .foregroundColor(.accentColor)
+                    //                        .frame(width: proxy.size.width * 0.18, height: proxy.size.height * 0.18)
+                    //                        .position(x: ebPosition.x, y: ebPosition.y)
+                    //                        .gesture(
+                    //                            DragGesture().onChanged { value in
+                    //                                ebPosition = value.location
+                    //                            }
+                    //                        )
+                    
                     Image("mil-mar-br")
+                    
                         .resizable()
                         .scaledToFit()
                         .foregroundColor(.accentColor)
-                        .frame(width: proxy.size.width * 0.18, height: proxy.size.height * 0.18)
+                        .frame(
+                            width: proxy.size.width * (marSizeProportion/2),
+                            height: proxy.size.height * marSizeProportion
+                        )
                         .position(x: marPosition.x, y: marPosition.y)
                         .gesture(
                             DragGesture().onChanged { value in
                                 marPosition = value.location
                             }
                         )
+                    
+                    //                        .resizable()
+                    //                        .scaledToFit()
+                    //                        .foregroundColor(.accentColor)
+                    //                        .frame(width: proxy.size.width * 0.18, height: proxy.size.height * 0.18)
+                    //                        .position(x: marPosition.x, y: marPosition.y)
+                    //                        .gesture(
+                    //                            DragGesture().onChanged { value in
+                    //                                marPosition = value.location
+                    //                            }
+                    //                        )
                 }
                 .border(.green)
             }
@@ -171,16 +179,19 @@ struct Tela2: View{
                     .scaledToFill()
                     .ignoresSafeArea()
             )
-            .onChange(of: [vetPosition, aeroPosition, ebPosition, marPosition]) { newValues in
-                
-                let thresholdX = proxy.size.width * 0.4
-                let thresholdY = proxy.size.height * 0.4
-                
-                continencia = newValues.contains(where: { position in
-                    return position.x < thresholdX && position.y > thresholdY
-                })
-
-            }
+            
+            
+            //mudanca mateus para continencia ser na area e nao por boneco.
+//            .onChange(of: [vetPosition, aeroPosition, ebPosition, marPosition]) { newValues in
+//
+//                let thresholdX = proxy.size.width * 0.4
+//                let thresholdY = proxy.size.height * 0.4
+//
+//                continencia = newValues.contains(where: { position in
+//                    return position.x < thresholdX && position.y > thresholdY
+//                })
+//
+//            }
             
             //Boneco 1: Mudanca do tamanho do veterano dentro da area delimitada.
             
@@ -198,11 +209,11 @@ struct Tela2: View{
                 // Condicional para mudanca do padrao para continencia, quando vet dentro da área delimitada pelas constantes thresholdX e thresholdY
                 
                 if newValue.x < thresholdX, newValue.y > thresholdY {
-//                    continencia = true
+                    continencia = true
                     vetSizeProportion = milSizeProportion
                 } else {
                     vetSizeProportion = 0.18
-//                    continencia = false
+                    continencia = false
                 }
             })
             
@@ -221,11 +232,11 @@ struct Tela2: View{
                 // Condicional para mudanca do padrao para continencia, quando aero dentro da área delimitada pelas constantes thresholdX e thresholdY
                 
                 if newValue.x < thresholdX, newValue.y > thresholdY {
-//                    continencia = true
+                    continencia = true
                     aeroSizeProportion = milSizeProportion
                 } else {
                     aeroSizeProportion = 0.18
-//                    continencia = false
+                    continencia = false
                 }
             })
             
@@ -244,11 +255,11 @@ struct Tela2: View{
                 // Condicional para mudanca do padrao para continencia, quando eb dentro da área delimitada pelas constantes thresholdX e thresholdY
                 
                 if newValue.x < thresholdX, newValue.y > thresholdY {
-//                    continencia = true
+                    continencia = true
                     ebSizeProportion = milSizeProportion
                 } else {
                     ebSizeProportion = 0.18
-//                    continencia = false
+                    continencia = false
                 }
             })
             
@@ -267,11 +278,11 @@ struct Tela2: View{
                 // Condicional para mudanca do padrao para continencia, quando mar dentro da área delimitada pelas constantes thresholdX e thresholdY
                 
                 if newValue.x < thresholdX, newValue.y > thresholdY {
-//                    continencia = true
+                    continencia = true
                     marSizeProportion = milSizeProportion
                 } else {
                     marSizeProportion = 0.18
-//                    continencia = false
+                    continencia = false
                 }
             })
             
@@ -279,15 +290,19 @@ struct Tela2: View{
             // Replicar pros outros bonequinhos
             .onAppear {
                 // colocar pontos iniciais corretos em todos os positions
-                vetPosition.x = proxy.size.width * 0.5
-                aeroPosition.x = proxy.size.width * 0.5
-                ebPosition.x = proxy.size.width * 0.5
-                marPosition.x = proxy.size.width * 0.5
+                vetPosition.x = proxy.size.width * 0.6
+                vetPosition.y = proxy.size.height * 0.1
+                aeroPosition.x = proxy.size.width * 0.6
+                aeroPosition.y = proxy.size.height * 0.3
+                ebPosition.x = proxy.size.width * 0.6
+                ebPosition.y = proxy.size.height * 0.5
+                marPosition.x = proxy.size.width * 0.6
+                marPosition.y = proxy.size.height * 0.7
             }
         }
     }
+    
 }
-
 
 //import SwiftUI
 ////#-learning-task(conditionalCircle)
