@@ -1,21 +1,35 @@
 import SwiftUI
 
-//     2.2 Detectar se a imagem está na regiao desejada pra mudar o state
-
-
-//está dando problema de escala no tamanho dos bonecos. Cada boneco aciona em uma coordenada diferente , mais abaixo da tela. Precisa consertar.
-
-//criar uma condiçao que caso haja qualquer boneco dentro da coordenada estipulada para a continencia, o boneco permanece em continencia. atualmente com bug de dois bonecos na area
-
-// Ajustar texto do background da primeira tela. Incluir a celebracao da "unity and diversity", "enjoy" e passar por correcao ortografica.
-
 //incluir botao de som que habilita e desabilita a musica.
 
 struct ContentView: View {
+    
+    @State var soundOn = true
+    let soundbuttonProportion: Double = 1
+    
     var body: some View {
+        
+        GeometryReader { proxy in
+        
         ZStack {
+            
             Image("bg-text")
                 .resizable()
+            
+            VStack {
+                
+                Spacer()
+                
+                HStack {
+                
+                Spacer()
+                Image("speaker")
+                        .resizable()
+                        .frame(width: proxy.size.width * 0.03, height: proxy.size.width * 0.03)
+                        .position(x: proxy.size.width * 0.95, y: proxy.size.height * 0.95)
+                }
+            }
+            
             HStack{
                 NavigationLink(destination: Tela2()) {
                     Image("start")
@@ -24,10 +38,11 @@ struct ContentView: View {
         }
     }
 }
+}
 
 struct Tela2: View{
     
-    
+    @State var soundOn = true
     @State var continencia = false
     
     let milSizeProportion: Double = 0.41
@@ -39,7 +54,6 @@ struct Tela2: View{
     @State var aeroSizeProportion: Double = 0.18
     
     @State var ebPosition: CGPoint = .zero
-    //width (width/50)*40
     @State var ebSizeProportion: Double = 0.18
     
     @State var marPosition: CGPoint = .zero
@@ -50,6 +64,7 @@ struct Tela2: View{
             HStack(alignment: .bottom) {
                 
                 ZStack {
+
                     Image("bandeira")
                         .resizable()
                         .scaledToFit()
@@ -180,6 +195,27 @@ struct Tela2: View{
                     .ignoresSafeArea()
             )
             
+//           botão de som - posicionamento e condicional de acionamento
+            
+            VStack {
+                
+                Spacer()
+                
+                HStack {
+                
+                Spacer()
+                Image("speaker")
+                        .resizable()
+                        .frame(width: proxy.size.width * 0.03, height: proxy.size.width * 0.03)
+                        .position(x: proxy.size.width * 0.95, y: proxy.size.height * 0.95)
+                }
+            }
+            
+//            if (soundOn = true){
+//                ebSizeProportion = milSizeProportion
+//            } else {
+//                ebSizeProportion = 0.18
+//            }
             
             //mudanca mateus para continencia ser na area e nao por boneco.
 //            .onChange(of: [vetPosition, aeroPosition, ebPosition, marPosition]) { newValues in
@@ -287,9 +323,8 @@ struct Tela2: View{
             })
             
             
-            // Replicar pros outros bonequinhos
+            // Posicionamento inicial dos bonecos vet, aero, eb, mar
             .onAppear {
-                // colocar pontos iniciais corretos em todos os positions
                 vetPosition.x = proxy.size.width * 0.6
                 vetPosition.y = proxy.size.height * 0.1
                 aeroPosition.x = proxy.size.width * 0.6
@@ -304,36 +339,5 @@ struct Tela2: View{
     
 }
 
-//import SwiftUI
-////#-learning-task(conditionalCircle)
-//
-//struct ConditionalCircle: View {
-//    @State var isOn = false
-//    
-//    var body: some View {
-//        VStack {
-//            /*#-code-walkthrough(conditionalCircle.circleView)*/
-//            Circle()
-//                .frame(maxHeight: 200)
-//            /*#-code-walkthrough(conditionalCircle.foregroundColor)*/
-//                .foregroundColor(/*#-code-walkthrough(conditionalCircle.ternary)*/ isOn ? .purple : .mint /*#-code-walkthrough(conditionalCircle.ternary)*/)
-//            /*#-code-walkthrough(conditionalCircle.foregroundColor)*/
-//            /*#-code-walkthrough(conditionalCircle.circleView)*/
-//                .shadow(color: isOn ? .indigo : .orange, radius: 20)
-//            
-//                .scaleEffect(isOn ? 1 : 0.75)
-//                .animation(.spring(), value: isOn)
-//            
-//            
-//            Button("Press Me") {
-//                isOn.toggle()
-//            }
-//        }
-//    }
-//}
-//
-//struct SwiftUIView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        ConditionalCircle().assess()
-//    }
-//}
+   
+            
