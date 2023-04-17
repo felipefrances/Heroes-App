@@ -1,65 +1,77 @@
 import SwiftUI
-import AVKit
 
 //incluir botao de som que habilita e desabilita a musica.
 
+//TELA 01
+
 struct ContentView: View {
     
-    @State var audioPlayer: AVAudioPlayer!
-    @State var soundOn = true
-    let soundbuttonProportion: Double = 1
+
+    @State var text = """
+I'm 38 years old, and I've been a military man for 20 years, transitioning to the software development field through the Academy Foundation program. As a military man, I had the chance to work with people of all races, genders, and religions, which taught me to value diversity and the importance of unity.
+
+The history of the Brazilian army is a story of diversity and unity. It goes back to the Battle of Guararapes, where blacks, Indians, and whites joined forces despite their races to defend their land and freedom against the invaders. This "fusion of races" was the embryo of the Brazilian army and represents what the Brazilian people are today, a mixture of all races and cultures. I was inspired by my personal journey and this history to create this project, which shows a military man paying homage to  military personnel of various races and genders. The military salute is a way of showing respect, recognition, and gratitude for his homeland and the people who work to defend it.
+
+Through this project, I want to promote diversity and mutual respect, values that I learned in the military, and apply them in a new area: technology.
+
+Note: In this project, the choice of an 8-bit arcade style for the app considers my childhood in the late 80s, when I played an electronic game for the first time on my older siblings' Atari. For the soundtrack, I made a chiptune version of one of my favorite songs, from a Brazilian pop-rock band from my home state.
+"""
+    
+    @EnvironmentObject var audioService: AudioService
     
     var body: some View {
         
         GeometryReader { proxy in
-        
-        ZStack {
             
-            Image("bg-text")
-                .resizable()
-            
-            VStack {
+            ZStack {
                 
-                Spacer()
+                Image("bg-2")
+                    .resizable()
                 
-                HStack {
-                
-                Spacer()
-                    Button {
-                        soundOn.toggle()
-                    } label: {
-                        if soundOn {
-                            Image("speaker")
-                                .resizable()
-                                .frame(width: proxy.size.width * 0.03,
-                                       height: proxy.size.width * 0.03)
-                                .position(x: proxy.size.width * 0.95, y: proxy.size.height * 0.95)
-                            
-                        } else {
-                            Image("mute")
-                                .resizable()
-                                .frame(width: proxy.size.width * 0.03,
-                                       height: proxy.size.width * 0.03)
-                                .position(x: proxy.size.width * 0.95, y: proxy.size.height * 0.95)
-                            
-                        }
+                VStack {
+                    ScrollView {
+                        Text(text)
+                            .font(.system(size: 32, weight: .bold, design: .monospaced))
+                            .fixedSize(horizontal: false, vertical: true)
                     }
+                    .frame(maxWidth: proxy.size.width * 0.75, maxHeight: proxy.size.height * 0.68)
+                    
+                    NavigationLink(
+                        destination: Tela2().environmentObject(audioService)
+                    ) {
+                        Image("start")
+                    }
+                }
+                
+                VStack {
+                    Spacer()
+                    HStack {
+                        Spacer()
+                        Button {
+                            audioService.soundOn.toggle()
+                        } label: {
+                            Image(audioService.soundOn ? "speaker" : "mute") // if ternary
+                                .resizable()
+                                .scaledToFit()
+                        }
+                        .frame(width: proxy.size.width * 0.1, height: proxy.size.width * 0.05)
+                        .padding()
+                        .background(Color.white.opacity(0.25))
+                        .clipShape(Circle())
+                    }
+                }
+                .padding()
 
-                }
             }
-            
-            HStack{
-                NavigationLink(destination: Tela2()) {
-                    Image("start")
-                }
-            }
+            .ignoresSafeArea()
+
         }
     }
-}
 }
 
 struct Tela2: View{
     
+    @EnvironmentObject var audioService: AudioService
     
     @State var soundOn = true
     @State var continencia = false
@@ -80,6 +92,7 @@ struct Tela2: View{
     
     var body: some View {
         GeometryReader { proxy in
+
             HStack(alignment: .bottom) {
                 
                 ZStack {
@@ -87,7 +100,6 @@ struct Tela2: View{
                     Image("bandeira")
                         .resizable()
                         .scaledToFit()
-                        .border(.blue)
                     VStack {
                         Spacer()
                         Image(continencia ? "mil-cont" : "mil-padrao")
@@ -97,20 +109,11 @@ struct Tela2: View{
                                 width: proxy.size.width * (milSizeProportion/2),
                                 height: proxy.size.height * milSizeProportion
                             )
-                            .border(.red)
                     }
                     .padding(.leading, 50)
                     .padding(.bottom)
-                    
-                    .border(.blue)
                 }
-                //                .onAppear {
-                //
-                //                    aeroPosition = CGPoint(x: 0, y: 250)
-                //                    ebPosition = CGPoint(x: 0, y: 500)
-                //                    marPosition = CGPoint(x: 0, y: 750)
-                //                }
-                
+              
                 ZStack {
                     Image("mil-vet")
                         .resizable()
@@ -127,7 +130,7 @@ struct Tela2: View{
                             }
                         )
                     
-                    Image("mil-aer-1.png")
+                    Image("mil-aer")
                         .resizable()
                         .scaledToFit()
                         .foregroundColor(.accentColor)
@@ -173,59 +176,76 @@ struct Tela2: View{
                                 marPosition = value.location
                             }
                         )
-                    
-                    
                 }
-                .border(.green)
             }
             .padding()
             .background(
-                Image("background")
-                    .resizable()
-                    .scaledToFill()
-                    .ignoresSafeArea()
+                ZStack {
+                    Image("bg-2")
+                        .resizable()
+                    
+                    VStack {
+                        Spacer()
+                        HStack {
+                            Spacer()
+                            Button {
+                                audioService.soundOn.toggle()
+                            } label: {
+                                Image(audioService.soundOn ? "speaker" : "mute") // if ternary
+                                    .resizable()
+                                    .scaledToFit()
+                            }
+                            .frame(width: proxy.size.width * 0.1, height: proxy.size.width * 0.05)
+                            .padding()
+                            .background(Color.white.opacity(0.25))
+                            .clipShape(Circle())
+                        }
+                    }
+                    .padding()
+                }
+                .ignoresSafeArea()
             )
             
             //           botão de som - posicionamento e condicional de acionamento
+         
             
-            VStack {
-                
-                Spacer()
-                
-                HStack {
-                    
-                    Spacer()
-                    
-                    Button {
-                        soundOn.toggle()
-                    } label: {
-                        if soundOn {
-                            Image("speaker")
-                                .resizable()
-                                .frame(width: proxy.size.width * 0.03,
-                                       height: proxy.size.width * 0.03)
-                                .position(x: proxy.size.width * 0.95, y: proxy.size.height * 0.95)
-                            
-                        } else {
-                            Image("mute")
-                                .resizable()
-                                .frame(width: proxy.size.width * 0.03,
-                                       height: proxy.size.width * 0.03)
-                                .position(x: proxy.size.width * 0.95, y: proxy.size.height * 0.95)
-                            
-                        }
-                    }
+            
+//            VStack {
+//
+//                Spacer()
+//
+//                HStack {
+//
+//                    Spacer()
+//
+//                    Button {
+//                        soundOn.toggle()
+//                    } label: {
+//                        if soundOn {
+//                            Image("speaker")
+//                                .resizable()
+//                                .frame(width: proxy.size.width * 0.03,
+//                                       height: proxy.size.width * 0.03)
+//                                .position(x: proxy.size.width * 0.95, y: proxy.size.height * 0.95)
+//                            
+//                        } else {
+//                            Image("mute")
+//                                .resizable()
+//                                .frame(width: proxy.size.width * 0.03,
+//                                       height: proxy.size.width * 0.03)
+//                                .position(x: proxy.size.width * 0.95, y: proxy.size.height * 0.95)
+//                            
+//                        }
+//                    }
 
-                    Button("X") {
-                        soundOn.toggle()
                         
-                    }
+               //     }
                     //                    Image(soundOn ? "speaker" : "mute")
                     //                        .resizable()
                     //                        .frame(width: proxy.size.width * 0.03, height: proxy.size.width * 0.03)
                     //                        .position(x: proxy.size.width * 0.95, y: proxy.size.height * 0.95)
                     //                }
-                }
+             //   }
                 
                 //            if (soundOn = true){
                 //                ebSizeProportion = milSizeProportion
@@ -338,22 +358,52 @@ struct Tela2: View{
                     }
                 })
                 
-                
                 // Posicionamento inicial dos bonecos vet, aero, eb, mar
                 .onAppear {
-                    vetPosition.x = proxy.size.width * 0.6
-                    vetPosition.y = proxy.size.height * 0.1
-                    aeroPosition.x = proxy.size.width * 0.6
-                    aeroPosition.y = proxy.size.height * 0.3
-                    ebPosition.x = proxy.size.width * 0.6
-                    ebPosition.y = proxy.size.height * 0.5
-                    marPosition.x = proxy.size.width * 0.6
-                    marPosition.y = proxy.size.height * 0.7
+                    if UIScreen.main.bounds.width < UIScreen.main.bounds.height {
+                        vetPosition.x = proxy.size.height * 0.6
+                        vetPosition.y = proxy.size.width * 0.08
+                        aeroPosition.x = proxy.size.height * 0.6
+                        aeroPosition.y = proxy.size.width * 0.28
+                        ebPosition.x = proxy.size.height * 0.6
+                        ebPosition.y = proxy.size.width * 0.48
+                        marPosition.x = proxy.size.height * 0.6
+                        marPosition.y = proxy.size.width * 0.68
+                    } else {
+                        vetPosition.x = proxy.size.width * 0.6
+                        vetPosition.y = proxy.size.height * 0.08
+                        aeroPosition.x = proxy.size.width * 0.6
+                        aeroPosition.y = proxy.size.height * 0.28
+                        ebPosition.x = proxy.size.width * 0.6
+                        ebPosition.y = proxy.size.height * 0.48
+                        marPosition.x = proxy.size.width * 0.6
+                        marPosition.y = proxy.size.height * 0.68
+                    }
                 }
             }
         }
         
     }
     
-}
             
+
+//                .onAppear {
+//                    let sound = "alemdohorizonterock3"
+//                    if let path = Bundle.main.path(forResource: sound, ofType: "mp3") {
+//                        do {
+//                            let url = URL(fileURLWithPath: path)
+//                            self.audioPlayer = try AVAudioPlayer(contentsOf: url)
+//                            self.audioPlayer?.numberOfLoops = -1 // Reproduz em loop infinito
+//                            self.audioPlayer?.play()
+//                        } catch {
+//                            print("Erro ao carregar o som: \(error.localizedDescription)")
+//                        }
+//                    }
+//                }
+//            VStack {
+
+//                Spacer()
+
+//                HStack {
+
+//                Spacer()
