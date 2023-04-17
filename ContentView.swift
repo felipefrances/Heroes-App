@@ -5,17 +5,19 @@ import SwiftUI
 //TELA 01
 
 struct ContentView: View {
+
+
+    @State var text = ""
     
-
-    @State var text = """
-I'm 38 years old, and I've been a military man for 20 years, transitioning to the software development field through the Academy Foundation program. As a military man, I had the chance to work with people of all races, genders, and religions, which taught me to value diversity and the importance of unity.
-
-The history of the Brazilian army is a story of diversity and unity. It goes back to the Battle of Guararapes, where blacks, Indians, and whites joined forces despite their races to defend their land and freedom against the invaders. This "fusion of races" was the embryo of the Brazilian army and represents what the Brazilian people are today, a mixture of all races and cultures. I was inspired by my personal journey and this history to create this project, which shows a military man paying homage to  military personnel of various races and genders. The military salute is a way of showing respect, recognition, and gratitude for his homeland and the people who work to defend it.
-
-Through this project, I want to promote diversity and mutual respect, values that I learned in the military, and apply them in a new area: technology.
-
-Note: In this project, the choice of an 8-bit arcade style for the app considers my childhood in the late 80s, when I played an electronic game for the first time on my older siblings' Atari. For the soundtrack, I made a chiptune version of one of my favorite songs, from a Brazilian pop-rock band from my home state.
-"""
+//    @State var text = """
+//I'm 38 years old, and I've been a military man for 20 years, transitioning to the software development field through the Academy Foundation program. As a military man, I had the chance to work with people of all races, genders, and religions, which taught me to value diversity and the importance of unity.
+//
+//The history of the Brazilian army is a story of diversity and unity. It goes back to the Battle of Guararapes, where blacks, Indians, and whites joined forces despite their races to defend their land and freedom against the invaders. This "fusion of races" was the embryo of the Brazilian army and represents what the Brazilian people are today, a mixture of all races and cultures. I was inspired by my personal journey and this history to create this project, which shows a military man paying homage to  military personnel of various races and genders. The military salute is a way of showing respect, recognition, and gratitude for his homeland and the people who work to defend it.
+//
+//Through this project, I want to promote diversity and mutual respect, values that I learned in the military, and apply them in a new area: technology.
+//
+//Note: In this project, the choice of an 8-bit arcade style for the app considers my childhood in the late 80s, when I played an electronic game for the first time on my older siblings' Atari. For the soundtrack, I made a chiptune version of one of my favorite songs, from a Brazilian pop-rock band from my home state.
+//"""
     
     @EnvironmentObject var audioService: AudioService
     
@@ -31,8 +33,14 @@ Note: In this project, the choice of an 8-bit arcade style for the app considers
                 VStack {
                     ScrollView {
                         Text(text)
-                            .font(.system(size: 32, weight: .bold, design: .monospaced))
+                            .contentTransition(.interpolate)
+                            .font(Font.custom("PressStart2P-Regular", size: 22))
+//  MUDAR A COR DA FONTE PARA VERDE???
+// UM CLIQUE E O TEXTO APARECE TODO
+
+//                            .font(.system(size: 32, weight: .bold, design: .monospaced))
                             .fixedSize(horizontal: false, vertical: true)
+                            .lineSpacing(10)
                     }
                     .frame(maxWidth: proxy.size.width * 0.75, maxHeight: proxy.size.height * 0.68)
                     
@@ -66,7 +74,39 @@ Note: In this project, the choice of an 8-bit arcade style for the app considers
             .ignoresSafeArea()
 
         }
+        .onAppear {
+            
+            let fontURL = Bundle.main.url(forResource: "PressStart2P-Regular", withExtension: "ttf")
+            
+            CTFontManagerRegisterFontsForURL(fontURL! as CFURL, .process, nil)
+
+            
+            let textToInsert = """
+                The history of the Brazilian army is a story of diversity and unity. It goes back to the Battle of Guararapes, where blacks, Indians, and whites joined forces despite their races to defend their land and freedom against the invaders. This "fusion of races" was the embryo of the Brazilian army and represents what the Brazilian people are today, a mixture of all races and cultures. I was inspired by my personal journey and this history to create this project, which shows a military man paying homage to  military personnel of various races and genders. The military salute is a way of showing respect, recognition, and gratitude for his homeland and the people who work to defend it.
+                                
+                """
+            
+            
+            show(textToInsert: textToInsert)
+            
+            
+        }
     }
+    
+    func show(textToInsert: String) {
+        let textToInsert = """
+                The history of the Brazilian army is a story of diversity and unity. It goes back to the Battle of Guararapes, where blacks, Indians, and whites joined forces despite their races to defend their land and freedom against the invaders. This "fusion of races" was the embryo of the Brazilian army and represents what the Brazilian people are today, a mixture of all races and cultures. I was inspired by my personal journey and this history to create this project, which shows a military man paying homage to  military personnel of various races and genders. The military salute is a way of showing respect, recognition, and gratitude for his homeland and the people who work to defend it.
+                """
+        
+        
+        Task {
+            for character in textToInsert {
+                try! await Task.sleep(for: .seconds(0.05))
+                text.append(character)
+            }
+        }
+    }
+    
 }
 
 struct Tela2: View{
