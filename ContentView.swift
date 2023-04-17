@@ -31,18 +31,24 @@ struct ContentView: View {
                     .resizable()
                 
                 VStack {
-                    ScrollView {
-                        Text(text)
-                            .contentTransition(.interpolate)
-                            .font(Font.custom("PressStart2P-Regular", size: 22))
-//  MUDAR A COR DA FONTE PARA VERDE???
-// UM CLIQUE E O TEXTO APARECE TODO
-
-//                            .font(.system(size: 32, weight: .bold, design: .monospaced))
-                            .fixedSize(horizontal: false, vertical: true)
-                            .lineSpacing(10)
+                    ScrollViewReader { scrollProxy in
+                        ScrollView {
+                            Text(text)
+                                .id("texto")
+                                .contentTransition(.interpolate)
+                                .font(Font.custom("PressStart2P-Regular", size: 22))
+                                .onChange(of: text) { _ in
+                                    scrollProxy.scrollTo("texto", anchor: .bottom)
+                                }
+                            //  MUDAR A COR DA FONTE PARA VERDE???
+                            // UM CLIQUE E O TEXTO APARECE TODO
+                            
+                            //                            .font(.system(size: 32, weight: .bold, design: .monospaced))
+                                .fixedSize(horizontal: false, vertical: true)
+                                .lineSpacing(10)
+                        }
+                        .frame(maxWidth: proxy.size.width * 0.75, maxHeight: proxy.size.height * 0.68)
                     }
-                    .frame(maxWidth: proxy.size.width * 0.75, maxHeight: proxy.size.height * 0.68)
                     
                     NavigationLink(
                         destination: Tela2().environmentObject(audioService)
@@ -80,8 +86,8 @@ struct ContentView: View {
             
             CTFontManagerRegisterFontsForURL(fontURL! as CFURL, .process, nil)
 
-            
-            let textToInsert = """
+
+                var textToInsert = """
                 The history of the Brazilian army is a story of diversity and unity. It goes back to the Battle of Guararapes, where blacks, Indians, and whites joined forces despite their races to defend their land and freedom against the invaders. This "fusion of races" was the embryo of the Brazilian army and represents what the Brazilian people are today, a mixture of all races and cultures. I was inspired by my personal journey and this history to create this project, which shows a military man paying homage to  military personnel of various races and genders. The military salute is a way of showing respect, recognition, and gratitude for his homeland and the people who work to defend it.
                                 
                 """
@@ -94,11 +100,6 @@ struct ContentView: View {
     }
     
     func show(textToInsert: String) {
-        let textToInsert = """
-                The history of the Brazilian army is a story of diversity and unity. It goes back to the Battle of Guararapes, where blacks, Indians, and whites joined forces despite their races to defend their land and freedom against the invaders. This "fusion of races" was the embryo of the Brazilian army and represents what the Brazilian people are today, a mixture of all races and cultures. I was inspired by my personal journey and this history to create this project, which shows a military man paying homage to  military personnel of various races and genders. The military salute is a way of showing respect, recognition, and gratitude for his homeland and the people who work to defend it.
-                """
-        
-        
         Task {
             for character in textToInsert {
                 try! await Task.sleep(for: .seconds(0.05))
