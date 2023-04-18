@@ -87,7 +87,7 @@ struct ContentView: View {
             CTFontManagerRegisterFontsForURL(fontURL! as CFURL, .process, nil)
 
 
-                var textToInsert = """
+                let textToInsert = """
                 The history of the Brazilian army is a story of diversity and unity. It goes back to the Battle of Guararapes, where blacks, Indians, and whites joined forces despite their races to defend their land and freedom against the invaders. This "fusion of races" was the embryo of the Brazilian army and represents what the Brazilian people are today, a mixture of all races and cultures. I was inspired by my personal journey and this history to create this project, which shows a military man paying homage to  military personnel of various races and genders. The military salute is a way of showing respect, recognition, and gratitude for his homeland and the people who work to defend it.
                                 
                 """
