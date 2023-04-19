@@ -33,9 +33,9 @@ struct Tela2: View {
         GeometryReader { proxy in
 
             HStack(alignment: .bottom) {
-                
+
                 ZStack {
-                    
+                                        
                     Image("bandeira")
                         .resizable()
                         .scaledToFit()
@@ -54,6 +54,7 @@ struct Tela2: View {
                 }
               
                 ZStack {
+                    
                     Image("mil-vet")
                         .resizable()
                         .scaledToFit()
@@ -144,7 +145,19 @@ struct Tela2: View {
                 }
                 .ignoresSafeArea()
             )
-            
+            .overlay(
+                        Text("Move the military to the center to receive their salute")
+                            .padding(.horizontal, 20)
+                        .font(Font.custom("PressStart2P-Regular", size: 14))
+                        .foregroundColor(.black)
+                        .background(Color.green.opacity(0.20))
+                        .clipShape(Rectangle())
+//
+//                    .padding(.bottom, 210)
+//                    .padding(.horizontal, 44) //Ajustar altura e padding do botao de skip do texto
+                ,alignment: .top
+            )
+
             //           botão de som - posicionamento e condicional de acionamento
          
             

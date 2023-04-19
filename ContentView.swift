@@ -91,31 +91,14 @@ struct ContentView: View {
                     .resizable()
                 VStack {
                     
-//                    Text("Start in landscape position!")
-//                        .padding(.top, 200)
-//                        .font(Font.custom("PressStart2P-Regular", size: 100))
-//
+//                    Text("Use the app in landscape position")
+//                        .padding()
+//                        .font(Font.custom("PressStart2P-Regular", size: 14))
+//                    .background(Color.green.opacity(0.20))
+//                    .clipShape(Rectangle())
                        
                     Spacer()
                     
-                    //                    ScrollViewReader { scrollProxy in
-                    //                        ScrollView {
-                    //                            Text(text)
-                    //                                .id("texto")
-                    //                                .contentTransition(.interpolate)
-                    //                                .font(Font.custom("PressStart2P-Regular", size: 22))
-                    //                                .onChange(of: text) { _ in
-                    //                                    scrollProxy.scrollTo("texto", anchor: .bottom)
-                    //                                }
-                    //                            //  MUDAR A COR DA FONTE PARA VERDE???
-                    // UM CLIQUE E O TEXTO APARECE TODO
-                    //                            .font(.system(size: 32, weight: .bold, design: .monospaced))
-                    //                                .fixedSize(horizontal: false, vertical: true)
-                    //                                .lineSpacing(10)
-                    //                        }
-                    //                        .frame(maxWidth: proxy.size.width * 0.75, maxHeight: proxy.size.height * 0.68)
-                    //                    }
-                    //
                     VStack (spacing: 50){
                         NavigationLink(
                             destination: Tela1().environmentObject(audioService)
@@ -185,23 +168,3 @@ struct ContentView: View {
     
 }
 
-//                .onAppear {
-//                    let sound = "alemdohorizonterock3"
-//                    if let path = Bundle.main.path(forResource: sound, ofType: "mp3") {
-//                        do {
-//                            let url = URL(fileURLWithPath: path)
-//                            self.audioPlayer = try AVAudioPlayer(contentsOf: url)
-//                            self.audioPlayer?.numberOfLoops = -1 // Reproduz em loop infinito
-//                            self.audioPlayer?.play()
-//                        } catch {
-//                            print("Erro ao carregar o som: \(error.localizedDescription)")
-//                        }
-//                    }
-//                }
-//            VStack {
-
-//                Spacer()
-
-//                HStack {
-
-//                Spacer()
