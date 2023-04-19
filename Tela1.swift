@@ -46,10 +46,7 @@ struct Tela1: View {
                                 .onChange(of: text) { _ in
                                     scrollProxy.scrollTo("texto", anchor: .bottom)
                                 }
-                            //  MUDAR A COR DA FONTE PARA VERDE???
-                            // UM CLIQUE E O TEXTO APARECE TODO
-                            
-                            //                            .font(.system(size: 32, weight: .bold, design: .monospaced))
+                           
                                 .fixedSize(horizontal: false, vertical: true)
                                 .lineSpacing(10)
                                 
@@ -106,7 +103,13 @@ struct Tela1: View {
             CTFontManagerRegisterFontsForURL(fontURL! as CFURL, .process, nil)
             
             let textToInsert = """
-                DdddddddddddddddddDdddddddddddddddddDdddddddddddddddddDddddddddddddddddddddddddddddddddddddddddddddDdddddddddddddddddDdddddddddddddddddDdddddddddddddddddDddddddddddddddddddddddddddddddddddddddddddddDdddddddddddddddddDdddddddddddddddddDdddddddddddddddddDddddddddddddddddddddddddddddddddddddddddddddDdddddddddddddddddDdddddddddddddddddDdddddddddddddddddDddddddddddddddddddddddddddddddddddddddddddddDdddddddddddddddddDdddddddddddddddddDdddddddddddddddddDddddddddddddddddddddddddddddddddddddddddddddDdddddddddddddddddDdddddddddddddddddDdddddddddddddddddDddddddddddddddddddddddddddddddddddddddddddddDdddddddddddddddddDdddddddddddddddddDdddddddddddddddddDddddddddddddddddddddddddddddddddddddddddddddDdddddddddddddddddDdddddddddddddddddDdddddddddddddddddDddddddddddddddddddddddddddddddddddddddddddddDdddddddddddddddddDdddddddddddddddddDdddddddddddddddddDddddddddddddddddddddddddddddddddddddddddddddDdddddddddddddddddDdddddddddddddddddDdddddddddddddddddDddddddddddddddddddddddddddddddddddddddddddddDdddddddddddddddddDdddddddddddddddddDdddddddddddddddddDddddddddddddddddddddddddddddddddddddddddddddDdddddddddddddddddDdddddddddddddddddDdddddddddddddddddDdddddddddddddddddddddddddddddddddddddddddddd
+                On April 19, 1648, the Battle of Guararapes marked the birth of the Brazilian army, as it brought together people of different races - including blacks, Indians, and whites - to defend their land and freedom against foreign invaders. This event symbolizes unity, reflecting the diversity of our nation today.
+
+                In honor of this historical moment and my personal journey as a military veteran, I created an app for WWDC23 that pays tribute to military personnel and veterans of all races and genders. Inspired by my fascination with old 8-bit games and my recent learning of Swift programming at the Apple Developer Academy's foundation program, this app showcases military salutes as a way of demonstrating respect, recognition, and gratitude.
+
+                As a former military member, I value diversity and mutual respect, which are central themes of this app. It serves as a medium for me to express my appreciation to all military personnel, whether Brazilian or not, who devote their lives to protecting their nations and people.
+
+                For the best experience, please use your device in landscape orientation.
                 """
 
             show(textToInsert: textToInsert)
