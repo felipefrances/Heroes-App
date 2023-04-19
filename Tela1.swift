@@ -104,12 +104,10 @@ struct Tela1: View {
             
             let textToInsert = """
                 On April 19, 1648, the Battle of Guararapes marked the birth of the Brazilian army, as it brought together people of different races - including blacks, Indians, and whites - to defend their land and freedom against foreign invaders. This event symbolizes unity, reflecting the diversity of our nation today.
+                
+                As a military member, I value diversity and mutual respect, which are central themes of this app. Inspired by 38 age and my fascination with old 8-bit games, my 20 years career in the military and my learnings at the Apple Developer Academy, this app showcases military salutes as a way of demonstrating respect and gratitude.
 
-                In honor of this historical moment and my personal journey as a military veteran, I created an app for WWDC23 that pays tribute to military personnel and veterans of all races and genders. Inspired by my fascination with old 8-bit games and my recent learning of Swift programming at the Apple Developer Academy's foundation program, this app showcases military salutes as a way of demonstrating respect, recognition, and gratitude.
-
-                As a former military member, I value diversity and mutual respect, which are central themes of this app. It serves as a medium for me to express my appreciation to all military personnel, whether Brazilian or not, who devote their lives to protecting their nations and people.
-
-                For the best experience, please use your device in landscape orientation.
+                 It a way to express my appreciation to all military personnel who devote their lives to protecting their nations.
                 """
 
             show(textToInsert: textToInsert)

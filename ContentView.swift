@@ -21,18 +21,6 @@ struct ContentView: View {
     @State var marPosition: CGPoint = .zero
     @State var marSizeProportion: Double = 0.18
     
- 
-    
-//    @State var text = """
-//I'm 38 years old, and I've been a military man for 20 years, transitioning to the software development field through the Academy Foundation program. As a military man, I had the chance to work with people of all races, genders, and religions, which taught me to value diversity and the importance of unity.
-//
-//The history of the Brazilian army is a story of diversity and unity. It goes back to the Battle of Guararapes, where blacks, Indians, and whites joined forces despite their races to defend their land and freedom against the invaders. This "fusion of races" was the embryo of the Brazilian army and represents what the Brazilian people are today, a mixture of all races and cultures. I was inspired by my personal journey and this history to create this project, which shows a military man paying homage to  military personnel of various races and genders. The military salute is a way of showing respect, recognition, and gratitude for his homeland and the people who work to defend it.
-//
-//Through this project, I want to promote diversity and mutual respect, values that I learned in the military, and apply them in a new area: technology.
-//
-//Note: In this project, the choice of an 8-bit arcade style for the app considers my childhood in the late 80s, when I played an electronic game for the first time on my older siblings' Atari. For the soundtrack, I made a chiptune version of one of my favorite songs, from a Brazilian pop-rock band from my home state.
-//"""
-    
     @EnvironmentObject var audioService: AudioService
     
     fileprivate func charactersHStack(proxy: GeometryProxy) -> some View {
@@ -103,7 +91,7 @@ struct ContentView: View {
                     .resizable()
                 VStack {
                     
-//                    Text("Press start")
+//                    Text("Start in landscape position!")
 //                        .padding(.top, 200)
 //                        .font(Font.custom("PressStart2P-Regular", size: 100))
 //
@@ -169,13 +157,13 @@ struct ContentView: View {
             CTFontManagerRegisterFontsForURL(fontURL! as CFURL, .process, nil)
 
                 let textToInsert = """
-                On April 19, 1648, the Battle of Guararapes marked the birth of the Brazilian army, as it brought together people of different races - including blacks, Indians, and whites - to defend their land and freedom against foreign invaders. This event symbolizes unity, reflecting the diversity of our nation today.
+                                                On April 19, 1648, the Battle of Guararapes marked the birth of the Brazilian army, as it brought together people of different races - including blacks, Indians, and whites - to defend their land and freedom against foreign invaders. This event symbolizes unity, reflecting the diversity of our nation today.
+                                                
+                                                As a military member, I value diversity and mutual respect, which are central themes of this app. Inspired by 38 age and my fascination with old 8-bit games, my 20 years career in the military and my learnings at the Apple Developer Academy, this app showcases military salutes as a way of demonstrating respect and gratitude.
 
-                In honor of this historical moment and my personal journey as a military veteran, I created an app for WWDC23 that pays tribute to military personnel and veterans of all races and genders. Inspired by my fascination with old 8-bit games and my recent learning of Swift programming at the Apple Developer Academy's foundation program, this app showcases military salutes as a way of demonstrating respect, recognition, and gratitude.
+                                                 It a way to express my appreciation to all military personnel, whether Brazilian or not, who devote their lives to protecting their nations.
 
-                As a former military member, I value diversity and mutual respect, which are central themes of this app. It serves as a medium for me to express my appreciation to all military personnel, whether Brazilian or not, who devote their lives to protecting their nations and people.
-
-                For the best experience, please use your device in landscape orientation.
+                                                For the best experience, please use your device in landscape orientation.
                                 
                 """
             
