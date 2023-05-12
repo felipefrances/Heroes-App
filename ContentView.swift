@@ -92,7 +92,6 @@ struct ContentView: View {
                 VStack {
                     
 //                    Text("Use the app in landscape position")
-//                        .padding()
 //                        .font(Font.custom("PressStart2P-Regular", size: 14))
 //                    .background(Color.green.opacity(0.20))
 //                    .clipShape(Rectangle())

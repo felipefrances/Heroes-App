@@ -34,14 +34,14 @@ struct Tela1: View {
                             Text(text)
                                 .id("texto")
                                 .contentTransition(.interpolate)
-                                .font(Font.custom("PressStart2P-Regular", size: 21))
+                                .font(Font.custom("PressStart2P-Regular", size: 18))
                                 .foregroundColor(.black)
                                 .onChange(of: text) { _ in
                                     scrollProxy.scrollTo("texto", anchor: .bottom)
                                 }
                            
                                 .fixedSize(horizontal: false, vertical: true)
-                                .lineSpacing(9)
+                                .lineSpacing(7)
                                 
                         }
                         .frame(maxWidth: proxy.size.width * 0.75, maxHeight: proxy.size.height * 0.68)
