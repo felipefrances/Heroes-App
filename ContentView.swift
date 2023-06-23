@@ -1,7 +1,5 @@
 import SwiftUI
 
-//incluir botao de som que habilita e desabilita a musica.
-
 //TELA 01
 
 struct ContentView: View {

@@ -146,8 +146,8 @@ struct Tela2: View {
                 .ignoresSafeArea()
             )
             .overlay(
-                        Text("Move the military to the center to receive their salute")
-                            .padding(.horizontal, 20)
+                        Text("Drag and drop the military on the right to the center to receive a salute")
+                            .padding(.horizontal, 18)
                         .font(Font.custom("PressStart2P-Regular", size: 14))
                         .foregroundColor(.black)
                         .background(Color.green.opacity(0.20))
